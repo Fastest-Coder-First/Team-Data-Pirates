@@ -2,15 +2,22 @@ import requests
 from datetime import datetime
 
 def fetch_weather(city_name):
+    # Construct the URL for weather data using the city name and API key
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid=c9d3180a526ee27861dc136b4508ff4f"
+    
+    # Send a GET request to the API endpoint
     response = requests.get(url)
+    
+    # Check if the request was successful (status code 200)
     if response.status_code == 200:
+        # Return the weather data in JSON format
         return response.json()
     else:
+        # Raise an exception with the corresponding error message
         raise Exception(f"Error fetching weather data. Status code: {response.status_code}")
 
 def display_weather(weather_data):
-    # Extract relevant information from the weather data
+    # Extract relevant information from the weather data using nested dictionary access
     location = weather_data['coord']['lon'], weather_data['coord']['lat']
     sunrise = weather_data['sys']['sunrise']
     sunset = weather_data['sys']['sunset']
@@ -26,8 +33,8 @@ def display_weather(weather_data):
     rain = weather_data.get('rain', {}).get('1h', 0)
     snow = weather_data.get('snow', {}).get('1h', 0)
 
-    # Convert sunrise and sunset timestamps to human-readable format and in UTC
-    sunrise_time =  sunrise_time = datetime.utcfromtimestamp(sunrise).strftime('%Y-%m-%d %H:%M:%S')
+    # Convert sunrise and sunset timestamps to human-readable format in UTC
+    sunrise_time = datetime.utcfromtimestamp(sunrise).strftime('%Y-%m-%d %H:%M:%S')
     sunset_time = datetime.utcfromtimestamp(sunset).strftime('%Y-%m-%d %H:%M:%S')
 
     # Display the weather forecast
@@ -47,16 +54,22 @@ def display_weather(weather_data):
     print(f"Snow (last 1 hour): {snow} mm")
 
 try:
+    # Prompt the user to enter a city name
     city_name = input("Enter desired city name: ")
+    
+    # Fetch the weather data for the specified city
     weather_data = fetch_weather(city_name)
-    url="https://wttr.in/{}".format(city_name)
-    res=requests.get(url)
+    
+    # Display the weather forecast
     display_weather(weather_data)
+    
+    # Fetch and print additional weather information from a different source
+    url = "https://wttr.in/{}".format(city_name)
+    res = requests.get(url)
     print("Here is the weather forecast of the city you requested: ")
     print(res.text)
+    
 except Exception as e:
+    # Handle exceptions and display error messages
     print(e)
     print("Error fetching weather data. Please try again later.")
-
-
-
