@@ -71,9 +71,11 @@ With GitHub Copilot, you can write code faster, more accurately, and with reduce
 
 ![Screenshot from 2023-06-24 17-12-42](https://github.com/Fastest-Coder-First/Team-Data-Pirates/assets/67856422/c60b6791-2b2b-457d-aa18-4aa89b628e7b)
 
+## Authors
 
-
-
+- [@rohitpd18](https://www.github.com/rohitpd18/)
+- [@rancho2002](https://www.github.com/rancho2002/)
+- [@me](https://github.com/adi271001)
 
 
 
